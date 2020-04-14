@@ -10,6 +10,6 @@ int main(void){
     LCD_GoTo(0,0);
     LCD_WriteText("test");
     LCD_GoTo(0,1);
-    LCD_WriteText("aaaaaaa");
+    LCD_WriteText("xD");
     for(;;);
 }

@@ -19,29 +19,29 @@
 // Mo?na zmienia stosownie do potrzeb.
 //
 //-------------------------------------------------------------------------------------------------
-#define LCD_RS_DIR        DDRD
-#define LCD_RS_PORT     PORTD
-#define LCD_RS            (1 << PD0)
+#define LCD_RS_DIR        DDRA
+#define LCD_RS_PORT     PORTA
+#define LCD_RS            (1 << PA2)
 
-#define LCD_E_DIR        DDRD
-#define LCD_E_PORT        PORTD
-#define LCD_E            (1 << PD1)
+#define LCD_E_DIR        DDRA
+#define LCD_E_PORT        PORTA
+#define LCD_E            (1 << PA3)
 
-#define LCD_DB4_DIR        DDRD
-#define LCD_DB4_PORT    PORTD
-#define LCD_DB4            (1 << PD2)
+#define LCD_DB4_DIR        DDRA
+#define LCD_DB4_PORT    PORTA
+#define LCD_DB4            (1 << PA4)
 
-#define LCD_DB5_DIR        DDRD
-#define LCD_DB5_PORT    PORTD
-#define LCD_DB5            (1 << PD3)
+#define LCD_DB5_DIR        DDRA
+#define LCD_DB5_PORT    PORTA
+#define LCD_DB5            (1 << PA5)
 
-#define LCD_DB6_DIR        DDRD
-#define LCD_DB6_PORT    PORTD
-#define LCD_DB6            (1 << PD4)
+#define LCD_DB6_DIR        DDRA
+#define LCD_DB6_PORT    PORTA
+#define LCD_DB6            (1 << PA6)
 
-#define LCD_DB7_DIR        DDRD
-#define LCD_DB7_PORT    PORTD
-#define LCD_DB7            (1 << PD5)
+#define LCD_DB7_DIR        DDRA
+#define LCD_DB7_PORT    PORTA
+#define LCD_DB7            (1 << PA7)
 
 //-------------------------------------------------------------------------------------------------
 //
