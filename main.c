@@ -1,23 +1,15 @@
-/*
- * main.c	ATmega32	F_CPU = 8000000 Hz
- * 
- * Created on: 2020-04-14
- *     Author: admin
-*/
-// do³¹czanie systemowych plików nag³ówkowych
 #include <avr/io.h>
+#include "hd44780.h"
+#include <stdio.h>
 #include <util/delay.h>
 
-// miejsce na do³¹czanie w³asnych plików
-
-// g³ówna funkcja programu - main()
-int main( void ) {
-
-// sekcja inicjalizacji peryferiów
-
-// g³ówna pêtla programu
-	while(1) {
-
-	}
-
+int main(void){
+    LCD_Initalize();
+    LCD_Home();
+    LCD_Clear();
+    LCD_GoTo(0,0);
+    LCD_WriteText("test");
+    LCD_GoTo(0,1);
+    LCD_WriteText("aaaaaaa");
+    for(;;);
 }
