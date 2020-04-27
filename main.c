@@ -1,4 +1,4 @@
-#include <stdio.h>
+    #include <stdio.h>
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/pgmspace.h>
@@ -6,6 +6,7 @@
 #include "hd44780.h"
 
 #include "uart.h"
+#define KEY (1<<PC0)
 
 //INT0 interrupt
 ISR(INT0_vect )
@@ -43,24 +44,33 @@ ISR(INT1_vect )
 
 int main(void)
 {
+
+    PORTC |= KEY;
+
+    DDRD &=~ (1 << PD2);
+    DDRD &=~ (1 << PD3);
+    PORTD |= (1 << PD3)|(1 << PD2);
+
+    GICR |= (1<<INT0)|(1<<INT1);
+    MCUCR |= (1<<ISC01)|(1<<ISC11)|(1<<ISC10);
+
+    sei();
+
     LCD_Initalize();
     LCD_Home();
     LCD_Clear();
     LCD_GoTo(0,0);
     LCD_WriteText("INIT");
 
-  DDRD &=~ (1 << PD2);
-  DDRD &=~ (1 << PD3);
-  PORTD |= (1 << PD3)|(1 << PD2);
-
-  GICR |= (1<<INT0)|(1<<INT1);
-  MCUCR |= (1<<ISC01)|(1<<ISC11)|(1<<ISC10);
-
-  sei();
 
 
+   _delay_ms(10);
    while(1)
    {
+   if(!(PINC & KEY ))  {
+    LCD_GoTo(0,1);
+    LCD_WriteText("PRESS");
+   }
     _delay_ms(1);
    }
 

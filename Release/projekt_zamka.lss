@@ -3,21 +3,21 @@ Release/projekt_zamka.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000002e8  00000000  00000000  00000074  2**1
+  0 .text         00000306  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         0000000a  00800060  000002e8  0000035c  2**0
+  1 .data         00000010  00800060  00000306  0000037a  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  00000366  2**0
+  2 .comment      00000030  00000000  00000000  0000038a  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000398  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000003bc  2**2
                   CONTENTS, READONLY
-  4 .debug_info   000004e6  00000000  00000000  000003d4  2**0
+  4 .debug_info   000004e6  00000000  00000000  000003f8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_abbrev 000004a3  00000000  00000000  000008ba  2**0
+  5 .debug_abbrev 000004a3  00000000  00000000  000008de  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_line   0000001a  00000000  00000000  00000d5d  2**0
+  6 .debug_line   0000001a  00000000  00000000  00000d81  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_str    00000196  00000000  00000000  00000d77  2**0
+  7 .debug_str    00000196  00000000  00000000  00000d9b  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -46,13 +46,13 @@ Disassembly of section .text:
   50:	0c 94 4e 00 	jmp	0x9c	; 0x9c <__bad_interrupt>
 
 00000054 <MkBuildTime>:
-  54:	32 31 3a 33 36 3a 34 32 00                          21:36:42.
+  54:	31 39 3a 33 32 3a 31 35 00                          19:32:15.
 
 0000005d <MkBuildDate>:
-  5d:	32 30 32 30 2d 30 34 2d 31 34 00                    2020-04-14.
+  5d:	32 30 32 30 2d 30 34 2d 32 37 00                    2020-04-27.
 
 00000068 <MkBuildNumber>:
-  68:	31 31 00                                            11.
+  68:	31 34 00                                            14.
 
 0000006b <MkBuildVersion>:
   6b:	31 2e 30 2e 30 00 00                                1.0.0..
@@ -69,16 +69,16 @@ Disassembly of section .text:
   7e:	10 e0       	ldi	r17, 0x00	; 0
   80:	a0 e6       	ldi	r26, 0x60	; 96
   82:	b0 e0       	ldi	r27, 0x00	; 0
-  84:	e8 ee       	ldi	r30, 0xE8	; 232
-  86:	f2 e0       	ldi	r31, 0x02	; 2
+  84:	e6 e0       	ldi	r30, 0x06	; 6
+  86:	f3 e0       	ldi	r31, 0x03	; 3
   88:	02 c0       	rjmp	.+4      	; 0x8e <__do_copy_data+0x10>
   8a:	05 90       	lpm	r0, Z+
   8c:	0d 92       	st	X+, r0
-  8e:	aa 36       	cpi	r26, 0x6A	; 106
+  8e:	a0 37       	cpi	r26, 0x70	; 112
   90:	b1 07       	cpc	r27, r17
   92:	d9 f7       	brne	.-10     	; 0x8a <__do_copy_data+0xc>
   94:	0e 94 51 01 	call	0x2a2	; 0x2a2 <main>
-  98:	0c 94 72 01 	jmp	0x2e4	; 0x2e4 <_exit>
+  98:	0c 94 81 01 	jmp	0x302	; 0x302 <_exit>
 
 0000009c <__bad_interrupt>:
   9c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -338,37 +338,50 @@ Disassembly of section .text:
  2a0:	18 95       	reti
 
 000002a2 <main>:
- 2a2:	0e 94 a5 00 	call	0x14a	; 0x14a <LCD_Initalize>
- 2a6:	0e 94 9b 00 	call	0x136	; 0x136 <LCD_Home>
- 2aa:	0e 94 91 00 	call	0x122	; 0x122 <LCD_Clear>
- 2ae:	60 e0       	ldi	r22, 0x00	; 0
- 2b0:	80 e0       	ldi	r24, 0x00	; 0
- 2b2:	0e 94 8a 00 	call	0x114	; 0x114 <LCD_GoTo>
- 2b6:	84 e6       	ldi	r24, 0x64	; 100
- 2b8:	90 e0       	ldi	r25, 0x00	; 0
- 2ba:	0e 94 7e 00 	call	0xfc	; 0xfc <LCD_WriteText>
- 2be:	8a 98       	cbi	0x11, 2	; 17
- 2c0:	8b 98       	cbi	0x11, 3	; 17
- 2c2:	82 b3       	in	r24, 0x12	; 18
- 2c4:	8c 60       	ori	r24, 0x0C	; 12
- 2c6:	82 bb       	out	0x12, r24	; 18
- 2c8:	8b b7       	in	r24, 0x3b	; 59
- 2ca:	80 6c       	ori	r24, 0xC0	; 192
- 2cc:	8b bf       	out	0x3b, r24	; 59
- 2ce:	85 b7       	in	r24, 0x35	; 53
- 2d0:	8e 60       	ori	r24, 0x0E	; 14
- 2d2:	85 bf       	out	0x35, r24	; 53
- 2d4:	78 94       	sei
- 2d6:	8f ec       	ldi	r24, 0xCF	; 207
- 2d8:	97 e0       	ldi	r25, 0x07	; 7
- 2da:	01 97       	sbiw	r24, 0x01	; 1
- 2dc:	f1 f7       	brne	.-4      	; 0x2da <main+0x38>
- 2de:	00 c0       	rjmp	.+0      	; 0x2e0 <main+0x3e>
- 2e0:	00 00       	nop
- 2e2:	f9 cf       	rjmp	.-14     	; 0x2d6 <main+0x34>
+ 2a2:	a8 9a       	sbi	0x15, 0	; 21
+ 2a4:	8a 98       	cbi	0x11, 2	; 17
+ 2a6:	8b 98       	cbi	0x11, 3	; 17
+ 2a8:	82 b3       	in	r24, 0x12	; 18
+ 2aa:	8c 60       	ori	r24, 0x0C	; 12
+ 2ac:	82 bb       	out	0x12, r24	; 18
+ 2ae:	8b b7       	in	r24, 0x3b	; 59
+ 2b0:	80 6c       	ori	r24, 0xC0	; 192
+ 2b2:	8b bf       	out	0x3b, r24	; 59
+ 2b4:	85 b7       	in	r24, 0x35	; 53
+ 2b6:	8e 60       	ori	r24, 0x0E	; 14
+ 2b8:	85 bf       	out	0x35, r24	; 53
+ 2ba:	78 94       	sei
+ 2bc:	0e 94 a5 00 	call	0x14a	; 0x14a <LCD_Initalize>
+ 2c0:	0e 94 9b 00 	call	0x136	; 0x136 <LCD_Home>
+ 2c4:	0e 94 91 00 	call	0x122	; 0x122 <LCD_Clear>
+ 2c8:	60 e0       	ldi	r22, 0x00	; 0
+ 2ca:	80 e0       	ldi	r24, 0x00	; 0
+ 2cc:	0e 94 8a 00 	call	0x114	; 0x114 <LCD_GoTo>
+ 2d0:	84 e6       	ldi	r24, 0x64	; 100
+ 2d2:	90 e0       	ldi	r25, 0x00	; 0
+ 2d4:	0e 94 7e 00 	call	0xfc	; 0xfc <LCD_WriteText>
+ 2d8:	8f e1       	ldi	r24, 0x1F	; 31
+ 2da:	9e e4       	ldi	r25, 0x4E	; 78
+ 2dc:	01 97       	sbiw	r24, 0x01	; 1
+ 2de:	f1 f7       	brne	.-4      	; 0x2dc <main+0x3a>
+ 2e0:	00 c0       	rjmp	.+0      	; 0x2e2 <main+0x40>
+ 2e2:	00 00       	nop
+ 2e4:	98 99       	sbic	0x13, 0	; 19
+ 2e6:	08 c0       	rjmp	.+16     	; 0x2f8 <main+0x56>
+ 2e8:	61 e0       	ldi	r22, 0x01	; 1
+ 2ea:	80 e0       	ldi	r24, 0x00	; 0
+ 2ec:	0e 94 8a 00 	call	0x114	; 0x114 <LCD_GoTo>
+ 2f0:	89 e6       	ldi	r24, 0x69	; 105
+ 2f2:	90 e0       	ldi	r25, 0x00	; 0
+ 2f4:	0e 94 7e 00 	call	0xfc	; 0xfc <LCD_WriteText>
+ 2f8:	8f ec       	ldi	r24, 0xCF	; 207
+ 2fa:	97 e0       	ldi	r25, 0x07	; 7
+ 2fc:	01 97       	sbiw	r24, 0x01	; 1
+ 2fe:	f1 f7       	brne	.-4      	; 0x2fc <main+0x5a>
+ 300:	ef cf       	rjmp	.-34     	; 0x2e0 <main+0x3e>
 
-000002e4 <_exit>:
- 2e4:	f8 94       	cli
+00000302 <_exit>:
+ 302:	f8 94       	cli
 
-000002e6 <__stop_program>:
- 2e6:	ff cf       	rjmp	.-2      	; 0x2e6 <__stop_program>
+00000304 <__stop_program>:
+ 304:	ff cf       	rjmp	.-2      	; 0x304 <__stop_program>
