@@ -24,7 +24,7 @@
 /* Do not any changes in next four lines */
 /* These lines will be updated automaticaly by MkClipse */
 const char MkBuildVersion[] PROGMEM = {"1.0.0"};
-const char MkBuildNumber[] PROGMEM = {"49"};
+const char MkBuildNumber[] PROGMEM = {"60"};
 const char MkBuildDate[] PROGMEM = {"2020-04-27"};
-const char MkBuildTime[] PROGMEM = {"21:03:08"};
+const char MkBuildTime[] PROGMEM = {"21:15:44"};
 

@@ -1,4 +1,4 @@
-        #include <stdio.h>
+            #include <stdio.h>
 #include <stdlib.h>
 #include <avr/io.h>
 #include <util/delay.h>
@@ -15,18 +15,18 @@ unsigned int encoder = 0;
 //INT0 interrupt
 ISR( INT0_vect ) {
     if ( !bit_is_clear( PIND, PD3 ) ) {
-        encoder += 1;
+        encoder ++;
     } else {
-        encoder -= 1;
+        encoder --;
     }
 }
 
 //INT1 interrupt
 ISR( INT1_vect ) {
     if ( !bit_is_clear( PIND, PD2 ) ) {
-        encoder += 1;
+        encoder ++;
     } else {
-        encoder -= 1;
+        encoder --;
     }
 }
 
@@ -58,6 +58,14 @@ int main( void ) {
            LCD_GoTo( 0, 1 );
            LCD_WriteText( "PRESS" );
           } else if( key_lock && (PINC & KEY ) ) key_lock++;
+
+        if(encoder > 99){
+             encoder = 99;
+        }
+
+        if(encoder < 1){
+            encoder = 1;
+        }
 
         LCD_GoTo( 0, 0 );
         itoa(encoder,bufor,10);
