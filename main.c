@@ -1,4 +1,4 @@
-                #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <avr/io.h>
 #include <util/delay.h>
@@ -11,8 +11,7 @@
 
 uint16_t key_lock;
 unsigned int encoder = 0;
-int encoderResult[3];
-int encoderCount = 0;
+
 
 //INT0 interrupt
 ISR( INT0_vect ) {
@@ -34,10 +33,14 @@ ISR( INT1_vect ) {
 
 int main( void ) {
 
+    int encoderResult[3];
+    int encoderCount = 0;
+
     char bufor [4];
     char buforEnc0 [4];
-    //char buforEnc1 [4];
-    //char buforEnc2 [4];
+    char buforEnc1 [4];
+    char buforEnc2 [4];
+    char buforEncCount[4];
 
     PORTC |= KEY;
 
@@ -59,16 +62,30 @@ int main( void ) {
 
     while ( 1 ) {
           if( !key_lock && !(PINC & KEY ) ) {
-           key_lock = 50000;
-           //LCD_GoTo( 0, 1 );
-           //LCD_WriteText( "PRESS" );
+           key_lock = 65000;
+
+           //LCD_Clear();
+           itoa(encoderCount,buforEncCount,10);
+           LCD_GoTo( 10, 1);
+           LCD_WriteText( buforEncCount );
+
            encoderResult[encoderCount] = encoder;
 
-           itoa(encoderResult[encoderCount],buforEnc0,10);
-           LCD_GoTo( 0, 1 );
-           LCD_WriteText( buforEnc0 );
+           if(encoderCount == 0){
+               itoa(encoderResult[encoderCount],buforEnc0,10);
+               LCD_GoTo( 0, 1 );
+               LCD_WriteText( buforEnc0 );
+           } else if (encoderCount == 1){
+               itoa(encoderResult[encoderCount],buforEnc1,10);
+               LCD_GoTo( 3, 1);
+               LCD_WriteText( buforEnc1 );
+           } else if (encoderCount == 2){
+               itoa(encoderResult[encoderCount],buforEnc2,10);
+               LCD_GoTo( 6, 1);
+               LCD_WriteText( buforEnc2 );
+           }
 
-           encoderCount++;
+           encoderCount = encoderCount + 1;
 
           } else if( key_lock && (PINC & KEY ) ) key_lock++;
 
