@@ -209,7 +209,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x456
+.text           0x00000000      0x47a
  *(.vectors)
  .vectors       0x00000000       0x54 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega32.o
                 0x00000000                __vector_default
@@ -230,13 +230,12 @@ END GROUP
                 0x0000005d        0xb Release/mk_build.o
                 0x0000005d                MkBuildDate
  .progmem.data.MkBuildNumber
-                0x00000068        0x3 Release/mk_build.o
+                0x00000068        0x4 Release/mk_build.o
                 0x00000068                MkBuildNumber
  .progmem.data.MkBuildVersion
-                0x0000006b        0x6 Release/mk_build.o
-                0x0000006b                MkBuildVersion
+                0x0000006c        0x6 Release/mk_build.o
+                0x0000006c                MkBuildVersion
                 0x00000072                . = ALIGN (0x2)
- *fill*         0x00000071        0x1 
  *(.jumptables)
  *(.jumptables*)
  *(.lowtext)
@@ -334,23 +333,23 @@ END GROUP
                 0x0000020c       0x36 Release/main.o
                 0x0000020c                __vector_2
  .text.startup.main
-                0x00000242      0x1a6 Release/main.o
+                0x00000242      0x1ca Release/main.o
                 0x00000242                main
  .text.avr-libc
-                0x000003e8       0x16 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
-                0x000003e8                __itoa_ncheck
+                0x0000040c       0x16 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+                0x0000040c                __itoa_ncheck
  .text.avr-libc
-                0x000003fe       0x34 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
-                0x000003fe                __utoa_ncheck
-                0x00000400                __utoa_common
+                0x00000422       0x34 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+                0x00000422                __utoa_ncheck
+                0x00000424                __utoa_common
  .text.avr-libc
-                0x00000432       0x20 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(strrev.o)
-                0x00000432                strrev
-                0x00000452                . = ALIGN (0x2)
+                0x00000456       0x20 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x00000456                strrev
+                0x00000476                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000452        0x0 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000452                _exit
-                0x00000452                exit
+ .fini9         0x00000476        0x0 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00000476                _exit
+                0x00000476                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -369,42 +368,43 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000452        0x4 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000476        0x4 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000456                _etext = .
+                0x0000047a                _etext = .
 
-.data           0x00800060       0x10 load address 0x00000456
+.data           0x00800060       0x16 load address 0x0000047a
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x00800060       0x10 Release/main.o
+                0x00800060       0x15 Release/main.o
  *(.gnu.linkonce.d*)
-                0x00800070                . = ALIGN (0x2)
-                0x00800070                _edata = .
-                0x00800070                PROVIDE (__data_end, .)
+                0x00800076                . = ALIGN (0x2)
+ *fill*         0x00800075        0x1 
+                0x00800076                _edata = .
+                0x00800076                PROVIDE (__data_end, .)
 
-.bss            0x00800070        0x4
-                0x00800070                PROVIDE (__bss_start, .)
+.bss            0x00800076        0x4
+                0x00800076                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.encoder   0x00800070        0x2 Release/main.o
-                0x00800070                encoder
+ .bss.encoder   0x00800076        0x2 Release/main.o
+                0x00800076                encoder
  *(COMMON)
- COMMON         0x00800072        0x2 Release/main.o
-                0x00800072                key_lock
-                0x00800074                PROVIDE (__bss_end, .)
-                0x00000456                __data_load_start = LOADADDR (.data)
-                0x00000466                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800078        0x2 Release/main.o
+                0x00800078                key_lock
+                0x0080007a                PROVIDE (__bss_end, .)
+                0x0000047a                __data_load_start = LOADADDR (.data)
+                0x00000490                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800074        0x0
-                0x00800074                PROVIDE (__noinit_start, .)
+.noinit         0x0080007a        0x0
+                0x0080007a                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x00800074                PROVIDE (__noinit_end, .)
-                0x00800074                _end = .
-                0x00800074                PROVIDE (__heap_start, .)
+                0x0080007a                PROVIDE (__noinit_end, .)
+                0x0080007a                _end = .
+                0x0080007a                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)

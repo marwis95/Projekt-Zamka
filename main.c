@@ -1,4 +1,4 @@
-#include <stdio.h>
+    #include <stdio.h>
 #include <stdlib.h>
 #include <avr/io.h>
 #include <util/delay.h>
@@ -40,7 +40,7 @@ int main( void ) {
     char buforEnc0 [4];
     char buforEnc1 [4];
     char buforEnc2 [4];
-    char buforEncCount[4];
+//    char buforEncCount[4];
 
     PORTC |= KEY;
 
@@ -65,9 +65,9 @@ int main( void ) {
            key_lock = 65000;
 
            //LCD_Clear();
-           itoa(encoderCount,buforEncCount,10);
-           LCD_GoTo( 10, 1);
-           LCD_WriteText( buforEncCount );
+           //itoa(encoderCount,buforEncCount,10);
+           //LCD_GoTo( 10, 1);
+           //LCD_WriteText( buforEncCount );
 
            encoderResult[encoderCount] = encoder;
 
@@ -85,7 +85,14 @@ int main( void ) {
                LCD_WriteText( buforEnc2 );
            }
 
-           encoderCount = encoderCount + 1;
+           if(encoderCount < 2){
+               encoderCount = encoderCount + 1;
+           }else{
+               if(encoderResult[0] == 20 && encoderResult[1] == 40 && encoderResult[2] == 60){
+                    LCD_GoTo(10,1);
+                    LCD_WriteText("OPEN");
+               }
+           }
 
           } else if( key_lock && (PINC & KEY ) ) key_lock++;
 
@@ -96,6 +103,7 @@ int main( void ) {
         if(encoder < 1){
             encoder = 1;
         }
+
 
         LCD_GoTo( 0, 0 );
         itoa(encoder,bufor,10);
