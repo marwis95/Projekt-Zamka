@@ -1,4 +1,4 @@
-            #include <stdio.h>
+                #include <stdio.h>
 #include <stdlib.h>
 #include <avr/io.h>
 #include <util/delay.h>
@@ -11,6 +11,8 @@
 
 uint16_t key_lock;
 unsigned int encoder = 0;
+int encoderResult[3];
+int encoderCount = 0;
 
 //INT0 interrupt
 ISR( INT0_vect ) {
@@ -33,6 +35,9 @@ ISR( INT1_vect ) {
 int main( void ) {
 
     char bufor [4];
+    char buforEnc0 [4];
+    //char buforEnc1 [4];
+    //char buforEnc2 [4];
 
     PORTC |= KEY;
 
@@ -55,8 +60,16 @@ int main( void ) {
     while ( 1 ) {
           if( !key_lock && !(PINC & KEY ) ) {
            key_lock = 50000;
+           //LCD_GoTo( 0, 1 );
+           //LCD_WriteText( "PRESS" );
+           encoderResult[encoderCount] = encoder;
+
+           itoa(encoderResult[encoderCount],buforEnc0,10);
            LCD_GoTo( 0, 1 );
-           LCD_WriteText( "PRESS" );
+           LCD_WriteText( buforEnc0 );
+
+           encoderCount++;
+
           } else if( key_lock && (PINC & KEY ) ) key_lock++;
 
         if(encoder > 99){
