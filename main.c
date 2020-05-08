@@ -33,6 +33,8 @@ ISR( INT1_vect ) {
 
 int main( void ) {
 
+    int securityNumber = 0;
+
     int encoderResult[3];
     int encoderCount = 0;
 
@@ -40,7 +42,6 @@ int main( void ) {
     char buforEnc0 [4];
     char buforEnc1 [4];
     char buforEnc2 [4];
-//    char buforEncCount[4];
 
     PORTC |= KEY;
 
@@ -61,13 +62,11 @@ int main( void ) {
     _delay_ms( 10 );
 
     while ( 1 ) {
+
+          if(securityNumber == 0){
+
           if( !key_lock && !(PINC & KEY ) ) {
            key_lock = 65000;
-
-           //LCD_Clear();
-           //itoa(encoderCount,buforEncCount,10);
-           //LCD_GoTo( 10, 1);
-           //LCD_WriteText( buforEncCount );
 
            encoderResult[encoderCount] = encoder;
 
@@ -91,6 +90,17 @@ int main( void ) {
                if(encoderResult[0] == 20 && encoderResult[1] == 40 && encoderResult[2] == 60){
                     LCD_GoTo(10,1);
                     LCD_WriteText("OPEN");
+                    _delay_ms( 1000 );
+
+                    securityNumber++;
+                    LCD_Clear();
+
+               }else{
+                    LCD_GoTo(10,1);
+                    LCD_WriteText("WRONG");
+                    encoderCount = 0;
+                    _delay_ms( 1000 );
+                    LCD_Clear();
                }
            }
 
@@ -118,6 +128,15 @@ int main( void ) {
 
         LCD_GoTo( 2, 0 );
         LCD_WriteText("               ");
+
+        }else if (securityNumber == 1){
+
+             LCD_GoTo(0,0);
+             LCD_WriteText("Keyboard");
+
+        }
+
+
         _delay_ms( 1 );
     }
 

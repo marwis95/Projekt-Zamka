@@ -209,7 +209,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x47a
+.text           0x00000000      0x4e4
  *(.vectors)
  .vectors       0x00000000       0x54 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega32.o
                 0x00000000                __vector_default
@@ -333,23 +333,23 @@ END GROUP
                 0x0000020c       0x36 Release/main.o
                 0x0000020c                __vector_2
  .text.startup.main
-                0x00000242      0x1ca Release/main.o
+                0x00000242      0x234 Release/main.o
                 0x00000242                main
  .text.avr-libc
-                0x0000040c       0x16 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
-                0x0000040c                __itoa_ncheck
+                0x00000476       0x16 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+                0x00000476                __itoa_ncheck
  .text.avr-libc
-                0x00000422       0x34 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
-                0x00000422                __utoa_ncheck
-                0x00000424                __utoa_common
+                0x0000048c       0x34 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+                0x0000048c                __utoa_ncheck
+                0x0000048e                __utoa_common
  .text.avr-libc
-                0x00000456       0x20 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(strrev.o)
-                0x00000456                strrev
-                0x00000476                . = ALIGN (0x2)
+                0x000004c0       0x20 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x000004c0                strrev
+                0x000004e0                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000476        0x0 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000476                _exit
-                0x00000476                exit
+ .fini9         0x000004e0        0x0 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x000004e0                _exit
+                0x000004e0                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -368,43 +368,42 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000476        0x4 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x000004e0        0x4 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x0000047a                _etext = .
+                0x000004e4                _etext = .
 
-.data           0x00800060       0x16 load address 0x0000047a
+.data           0x00800060       0x24 load address 0x000004e4
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x00800060       0x15 Release/main.o
+                0x00800060       0x24 Release/main.o
  *(.gnu.linkonce.d*)
-                0x00800076                . = ALIGN (0x2)
- *fill*         0x00800075        0x1 
-                0x00800076                _edata = .
-                0x00800076                PROVIDE (__data_end, .)
+                0x00800084                . = ALIGN (0x2)
+                0x00800084                _edata = .
+                0x00800084                PROVIDE (__data_end, .)
 
-.bss            0x00800076        0x4
-                0x00800076                PROVIDE (__bss_start, .)
+.bss            0x00800084        0x4
+                0x00800084                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.encoder   0x00800076        0x2 Release/main.o
-                0x00800076                encoder
+ .bss.encoder   0x00800084        0x2 Release/main.o
+                0x00800084                encoder
  *(COMMON)
- COMMON         0x00800078        0x2 Release/main.o
-                0x00800078                key_lock
-                0x0080007a                PROVIDE (__bss_end, .)
-                0x0000047a                __data_load_start = LOADADDR (.data)
-                0x00000490                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800086        0x2 Release/main.o
+                0x00800086                key_lock
+                0x00800088                PROVIDE (__bss_end, .)
+                0x000004e4                __data_load_start = LOADADDR (.data)
+                0x00000508                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080007a        0x0
-                0x0080007a                PROVIDE (__noinit_start, .)
+.noinit         0x00800088        0x0
+                0x00800088                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x0080007a                PROVIDE (__noinit_end, .)
-                0x0080007a                _end = .
-                0x0080007a                PROVIDE (__heap_start, .)
+                0x00800088                PROVIDE (__noinit_end, .)
+                0x00800088                _end = .
+                0x00800088                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
