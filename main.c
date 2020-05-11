@@ -1,4 +1,4 @@
-#include <stdio.h>
+                #include <stdio.h>
 #include <stdlib.h>
 #include <avr/io.h>
 #include <util/delay.h>
@@ -33,7 +33,7 @@ ISR( INT1_vect ) {
 
 int main( void ) {
 
-    int securityNumber = 1;
+    int securityNumber = 0;
 
     int encoderResult[3];
     int encoderCount = 0;
@@ -46,7 +46,7 @@ int main( void ) {
     int keypressed=0;
     int keyboardCount=0;
     char keyboardResult[4];
-//    uint8_t locked = 0;
+    uint8_t keyboardListener = 1;
 
     PORTC |= KEY;
 
@@ -154,8 +154,8 @@ int main( void ) {
              LCD_GoTo(4,1);
              LCD_WriteText("              ");
 
-
-             while(1){
+             keyboardListener = 1;
+             while(keyboardListener == 1){
 
                  if (PINB!=0b11110000){
 
@@ -257,6 +257,27 @@ int main( void ) {
                         keyboardCount++;
                      }
 
+                     if(keyboardCount >= 4){
+                        if(keyboardResult[0] == '1' && keyboardResult[1] == '9' && keyboardResult[2] == '9' && keyboardResult[3] == '5'){
+                            LCD_GoTo(10,1);
+                            LCD_WriteText("OPEN");
+                            _delay_ms( 1000 );
+
+                            securityNumber++;
+                            keyboardListener = 0;
+                            LCD_Clear();
+
+                       }else{
+                            LCD_GoTo(10,1);
+                            LCD_WriteText("WRONG");
+                            keyboardCount = 0;
+                            keyboardListener = 0;
+                            _delay_ms( 1000 );
+                            LCD_Clear();
+
+                        }
+                     }
+
                      keypressed=0;
                      DDRB ^=0b11111111;
                      _delay_ms(1);
@@ -267,6 +288,10 @@ int main( void ) {
 
              }
 
+
+        }else if (securityNumber == 2){
+             LCD_GoTo(0,0);
+             LCD_WriteText("Pass RFID card");
         }
 
 
