@@ -167,15 +167,61 @@ int main( void ) {
                      _delay_ms(1);
                      keypressed |=PINB;
 
-                     //LCD_GoTo(0,1);
-                     //itoa(keypressed,buforKeypressed,10);
-                     //LCD_WriteText(buforKeypressed);
+                     if (keypressed==0b01111110 && keyboardCount < 4){
+                        LCD_GoTo(0,1);
+                        keyboardResult[keyboardCount] = '7';
+                        LCD_WriteText(keyboardResult);
+                        LCD_GoTo(4,1);
+                        LCD_WriteText("              ");
+                        keyboardCount++;
+                     }
 
-                    // if (keypressed==0b11111111){
-                    //     locked = 0;
-                     //}
+                     if (keypressed==0b10111110 && keyboardCount < 4){
+                        LCD_GoTo(0,1);
+                        keyboardResult[keyboardCount] = '8';
+                        LCD_WriteText(keyboardResult);
+                        LCD_GoTo(4,1);
+                        LCD_WriteText("              ");
+                        keyboardCount++;
+                     }
 
-                     if (keypressed==0b01111110){
+                     if (keypressed==0b11011110 && keyboardCount < 4){
+                        LCD_GoTo(0,1);
+                        keyboardResult[keyboardCount] = '9';
+                        LCD_WriteText(keyboardResult);
+                        LCD_GoTo(4,1);
+                        LCD_WriteText("              ");
+                        keyboardCount++;
+                     }
+
+                     if (keypressed==0b01111101 && keyboardCount < 4){
+                        LCD_GoTo(0,1);
+                        keyboardResult[keyboardCount] = '4';
+                        LCD_WriteText(keyboardResult);
+                        LCD_GoTo(4,1);
+                        LCD_WriteText("              ");
+                        keyboardCount++;
+                     }
+
+                     if (keypressed==0b10111101 && keyboardCount < 4){
+                        LCD_GoTo(0,1);
+                        keyboardResult[keyboardCount] = '5';
+                        LCD_WriteText(keyboardResult);
+                        LCD_GoTo(4,1);
+                        LCD_WriteText("              ");
+                        keyboardCount++;
+                     }
+
+                     if (keypressed==0b11011101 && keyboardCount < 4){
+                        LCD_GoTo(0,1);
+                        keyboardResult[keyboardCount] = '6';
+                        LCD_WriteText(keyboardResult);
+                        LCD_GoTo(4,1);
+                        LCD_WriteText("              ");
+                        keyboardCount++;
+                     }
+
+                     if (keypressed==0b01111011 && keyboardCount < 4){
                         LCD_GoTo(0,1);
                         keyboardResult[keyboardCount] = '1';
                         LCD_WriteText(keyboardResult);
@@ -184,10 +230,37 @@ int main( void ) {
                         keyboardCount++;
                      }
 
-                     keypressed=0;//after showing integer erasing the row column memory
-                     DDRB ^=0b11111111;//shifting input and power port
+                     if (keypressed==0b10111011 && keyboardCount < 4){
+                        LCD_GoTo(0,1);
+                        keyboardResult[keyboardCount] = '2';
+                        LCD_WriteText(keyboardResult);
+                        LCD_GoTo(4,1);
+                        LCD_WriteText("              ");
+                        keyboardCount++;
+                     }
+
+                     if (keypressed==0b11011011 && keyboardCount < 4){
+                        LCD_GoTo(0,1);
+                        keyboardResult[keyboardCount] = '3';
+                        LCD_WriteText(keyboardResult);
+                        LCD_GoTo(4,1);
+                        LCD_WriteText("              ");
+                        keyboardCount++;
+                     }
+
+                     if (keypressed==0b10110111 && keyboardCount < 4){
+                        LCD_GoTo(0,1);
+                        keyboardResult[keyboardCount] = '0';
+                        LCD_WriteText(keyboardResult);
+                        LCD_GoTo(4,1);
+                        LCD_WriteText("              ");
+                        keyboardCount++;
+                     }
+
+                     keypressed=0;
+                     DDRB ^=0b11111111;
                      _delay_ms(1);
-                     PORTB ^= 0b11111111;//powering row pins of keypad
+                     PORTB ^= 0b11111111;
                      _delay_ms(220);
 
                  }
