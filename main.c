@@ -1,4 +1,4 @@
-    #include <stdio.h>
+                    #include <stdio.h>
 #include <stdlib.h>
 #include <avr/io.h>
 #include <util/delay.h>
@@ -42,6 +42,9 @@ int main( void ) {
     char buforEnc0 [4];
     char buforEnc1 [4];
     char buforEnc2 [4];
+
+    int keypressed=0;//integer for storing matrix value
+    char buforKeypressed[8];
 
     PORTC |= KEY;
 
@@ -133,6 +136,37 @@ int main( void ) {
 
              LCD_GoTo(0,0);
              LCD_WriteText("Keyboard");
+
+             DDRB=0xF0;//taking column pins as input and row pins as output
+             _delay_ms(1);
+             PORTB=0x0F;// powering the row ins
+             _delay_ms(1);
+
+             while(1){
+
+                 if (PINB!=0b11110000){
+
+                     _delay_ms(5);
+                     keypressed = PINB;//taking the column value into integer
+                     DDRB ^=0b11111111;//making rows as inputs and columns as ouput
+                     _delay_ms(1);
+                     PORTB ^= 0b11111111;//powering columns
+                     _delay_ms(1);
+                     keypressed |=PINB;//taking row value and OR ing it to column value
+
+                     LCD_GoTo(0,1);
+                     itoa(keypressed,buforKeypressed,10);
+                     LCD_WriteText(buforKeypressed);
+
+                     if (keypressed==0b01111110){
+                         LCD_GoTo(0,1);
+                         LCD_WriteText("dupa");
+                     }
+
+
+                 }
+
+             }
 
         }
 
