@@ -1,4 +1,4 @@
-                    #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <avr/io.h>
 #include <util/delay.h>
@@ -33,7 +33,7 @@ ISR( INT1_vect ) {
 
 int main( void ) {
 
-    int securityNumber = 0;
+    int securityNumber = 1;
 
     int encoderResult[3];
     int encoderCount = 0;
@@ -43,8 +43,10 @@ int main( void ) {
     char buforEnc1 [4];
     char buforEnc2 [4];
 
-    int keypressed=0;//integer for storing matrix value
-    char buforKeypressed[8];
+    int keypressed=0;
+    int keyboardCount=0;
+    char keyboardResult[4];
+//    uint8_t locked = 0;
 
     PORTC |= KEY;
 
@@ -137,32 +139,56 @@ int main( void ) {
              LCD_GoTo(0,0);
              LCD_WriteText("Keyboard");
 
-             DDRB=0xF0;//taking column pins as input and row pins as output
+             DDRB=0xF0;
              _delay_ms(1);
-             PORTB=0x0F;// powering the row ins
+             PORTB=0x0F;
              _delay_ms(1);
+
+             keyboardResult[0] = '_';
+             keyboardResult[1] = '_';
+             keyboardResult[2] = '_';
+             keyboardResult[3] = '_';
+
+             LCD_GoTo(0,1);
+             LCD_WriteText(keyboardResult);
+             LCD_GoTo(4,1);
+             LCD_WriteText("              ");
+
 
              while(1){
 
                  if (PINB!=0b11110000){
 
                      _delay_ms(5);
-                     keypressed = PINB;//taking the column value into integer
-                     DDRB ^=0b11111111;//making rows as inputs and columns as ouput
+                     keypressed = PINB;
+                     DDRB ^=0b11111111;
                      _delay_ms(1);
-                     PORTB ^= 0b11111111;//powering columns
+                     PORTB ^= 0b11111111;
                      _delay_ms(1);
-                     keypressed |=PINB;//taking row value and OR ing it to column value
+                     keypressed |=PINB;
 
-                     LCD_GoTo(0,1);
-                     itoa(keypressed,buforKeypressed,10);
-                     LCD_WriteText(buforKeypressed);
+                     //LCD_GoTo(0,1);
+                     //itoa(keypressed,buforKeypressed,10);
+                     //LCD_WriteText(buforKeypressed);
+
+                    // if (keypressed==0b11111111){
+                    //     locked = 0;
+                     //}
 
                      if (keypressed==0b01111110){
-                         LCD_GoTo(0,1);
-                         LCD_WriteText("dupa");
+                        LCD_GoTo(0,1);
+                        keyboardResult[keyboardCount] = '1';
+                        LCD_WriteText(keyboardResult);
+                        LCD_GoTo(4,1);
+                        LCD_WriteText("              ");
+                        keyboardCount++;
                      }
 
+                     keypressed=0;//after showing integer erasing the row column memory
+                     DDRB ^=0b11111111;//shifting input and power port
+                     _delay_ms(1);
+                     PORTB ^= 0b11111111;//powering row pins of keypad
+                     _delay_ms(220);
 
                  }
 
