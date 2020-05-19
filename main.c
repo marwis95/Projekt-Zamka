@@ -1,4 +1,4 @@
-                #include <stdio.h>
+    #include <stdio.h>
 #include <stdlib.h>
 #include <avr/io.h>
 #include <util/delay.h>
@@ -6,6 +6,7 @@
 #include <avr/interrupt.h>
 #include "hd44780.h"
 #include "uart.h"
+#include "rfid_em4095.h"
 
 #define KEY (1<<PC0)
 
@@ -292,6 +293,15 @@ int main( void ) {
         }else if (securityNumber == 2){
              LCD_GoTo(0,0);
              LCD_WriteText("Pass RFID card");
+
+             RFID_init();//inicjalizacja EM4095 i procesora do dekodowania kart
+
+             while(1){
+                 if(RFID_id[0]==0002 && RFID_id[1]==3346 && RFID_id[2]==5003 && RFID_id[3]==5408){
+                     LCD_GoTo(10,1);
+                    LCD_WriteText("OPEN");
+                 }
+             }
         }
 
 
