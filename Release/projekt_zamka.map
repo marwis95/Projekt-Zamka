@@ -23,6 +23,7 @@ Allocating common symbols
 Common symbol       size              file
 
 RFID_decoded_flag   0x1               Release/rfid_em4095.o
+key2_lock           0x2               Release/main.o
 RFID_data           0x8               Release/rfid_em4095.o
 key_lock            0x2               Release/main.o
 RFID_id             0x5               Release/rfid_em4095.o
@@ -43,6 +44,8 @@ Discarded input sections
  .text          0x00000000        0x0 Release/rfid_em4095.o
  .data          0x00000000        0x0 Release/rfid_em4095.o
  .bss           0x00000000        0x0 Release/rfid_em4095.o
+ .text.RFID_init
+                0x00000000       0x4c Release/rfid_em4095.o
  .text.parity_cal
                 0x00000000       0x14 Release/rfid_em4095.o
  .text          0x00000000        0x0 Release/uart.o
@@ -267,7 +270,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xe6c
+.text           0x00000000      0xe70
  *(.vectors)
  .vectors       0x00000000       0x54 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5/crtatmega32.o
                 0x00000000                __vector_default
@@ -390,47 +393,44 @@ END GROUP
                 0x0000020c       0x36 Release/main.o
                 0x0000020c                __vector_2
  .text.startup.main
-                0x00000242      0x53a Release/main.o
+                0x00000242      0x58a Release/main.o
                 0x00000242                main
- .text.RFID_init
-                0x0000077c       0x4c Release/rfid_em4095.o
-                0x0000077c                RFID_init
  .text.header_align
-                0x000007c8      0x122 Release/rfid_em4095.o
-                0x000007c8                header_align
+                0x000007cc      0x122 Release/rfid_em4095.o
+                0x000007cc                header_align
  .text.h_parity
-                0x000008ea      0x120 Release/rfid_em4095.o
-                0x000008ea                h_parity
+                0x000008ee      0x120 Release/rfid_em4095.o
+                0x000008ee                h_parity
  .text.v_parity
-                0x00000a0a      0x11e Release/rfid_em4095.o
-                0x00000a0a                v_parity
+                0x00000a0e      0x11e Release/rfid_em4095.o
+                0x00000a0e                v_parity
  .text.__vector_6
-                0x00000b28      0x250 Release/rfid_em4095.o
-                0x00000b28                __vector_6
+                0x00000b2c      0x250 Release/rfid_em4095.o
+                0x00000b2c                __vector_6
  .text.libgcc.builtins
-                0x00000d78       0x32 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_ashldi3.o)
-                0x00000d78                __ashldi3
+                0x00000d7c       0x32 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_ashldi3.o)
+                0x00000d7c                __ashldi3
  .text.libgcc.builtins
-                0x00000daa       0x3c c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_ashrdi3.o)
-                0x00000daa                __ashrdi3
-                0x00000dae                __lshrdi3
- .text.libgcc   0x00000de6       0x18 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_cmpdi2_s8.o)
-                0x00000de6                __cmpdi2_s8
+                0x00000dae       0x3c c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_ashrdi3.o)
+                0x00000dae                __ashrdi3
+                0x00000db2                __lshrdi3
+ .text.libgcc   0x00000dea       0x18 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_cmpdi2_s8.o)
+                0x00000dea                __cmpdi2_s8
  .text.avr-libc
-                0x00000dfe       0x16 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
-                0x00000dfe                __itoa_ncheck
+                0x00000e02       0x16 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(itoa_ncheck.o)
+                0x00000e02                __itoa_ncheck
  .text.avr-libc
-                0x00000e14       0x34 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
-                0x00000e14                __utoa_ncheck
-                0x00000e16                __utoa_common
+                0x00000e18       0x34 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(utoa_ncheck.o)
+                0x00000e18                __utoa_ncheck
+                0x00000e1a                __utoa_common
  .text.avr-libc
-                0x00000e48       0x20 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(strrev.o)
-                0x00000e48                strrev
-                0x00000e68                . = ALIGN (0x2)
+                0x00000e4c       0x20 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a(strrev.o)
+                0x00000e4c                strrev
+                0x00000e6c                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000e68        0x0 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000e68                _exit
-                0x00000e68                exit
+ .fini9         0x00000e6c        0x0 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00000e6c                _exit
+                0x00000e6c                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -449,60 +449,61 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000e68        0x4 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000e6c        0x4 c:/users/dell e5510/documents/mkclipse/avr toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000e6c                _etext = .
+                0x00000e70                _etext = .
 
-.data           0x00800060       0x44 load address 0x00000e6c
+.data           0x00800060       0x54 load address 0x00000e70
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x00800060       0x33 Release/main.o
-                                 0x42 (size before relaxing)
+                0x00800060       0x43 Release/main.o
+                                 0x52 (size before relaxing)
  .rodata.CSWTCH.38
-                0x00800093       0x10 Release/rfid_em4095.o
+                0x008000a3       0x10 Release/rfid_em4095.o
  *(.gnu.linkonce.d*)
-                0x008000a4                . = ALIGN (0x2)
- *fill*         0x008000a3        0x1 
-                0x008000a4                _edata = .
-                0x008000a4                PROVIDE (__data_end, .)
+                0x008000b4                . = ALIGN (0x2)
+ *fill*         0x008000b3        0x1 
+                0x008000b4                _edata = .
+                0x008000b4                PROVIDE (__data_end, .)
 
-.bss            0x008000a4       0x1f
-                0x008000a4                PROVIDE (__bss_start, .)
+.bss            0x008000b4       0x21
+                0x008000b4                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
- .bss.encoder   0x008000a4        0x2 Release/main.o
-                0x008000a4                encoder
+ .bss.encoder   0x008000b4        0x2 Release/main.o
+                0x008000b4                encoder
  .bss.RFID_tmp.1798
-                0x008000a6        0x8 Release/rfid_em4095.o
+                0x008000b6        0x8 Release/rfid_em4095.o
  .bss.BitVal.1796
-                0x008000ae        0x1 Release/rfid_em4095.o
+                0x008000be        0x1 Release/rfid_em4095.o
  .bss.BitCt.1795
-                0x008000af        0x1 Release/rfid_em4095.o
+                0x008000bf        0x1 Release/rfid_em4095.o
  .bss.EdgeCt.1794
-                0x008000b0        0x1 Release/rfid_em4095.o
+                0x008000c0        0x1 Release/rfid_em4095.o
  .bss.LastICR.1792
-                0x008000b1        0x2 Release/rfid_em4095.o
+                0x008000c1        0x2 Release/rfid_em4095.o
  *(COMMON)
- COMMON         0x008000b3        0x2 Release/main.o
-                0x008000b3                key_lock
- COMMON         0x008000b5        0xe Release/rfid_em4095.o
-                0x008000b5                RFID_decoded_flag
-                0x008000b6                RFID_data
-                0x008000be                RFID_id
-                0x008000c3                PROVIDE (__bss_end, .)
-                0x00000e6c                __data_load_start = LOADADDR (.data)
-                0x00000eb0                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x008000c3        0x4 Release/main.o
+                0x008000c3                key2_lock
+                0x008000c5                key_lock
+ COMMON         0x008000c7        0xe Release/rfid_em4095.o
+                0x008000c7                RFID_decoded_flag
+                0x008000c8                RFID_data
+                0x008000d0                RFID_id
+                0x008000d5                PROVIDE (__bss_end, .)
+                0x00000e70                __data_load_start = LOADADDR (.data)
+                0x00000ec4                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008000c3        0x0
-                0x008000c3                PROVIDE (__noinit_start, .)
+.noinit         0x008000d5        0x0
+                0x008000d5                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x008000c3                PROVIDE (__noinit_end, .)
-                0x008000c3                _end = .
-                0x008000c3                PROVIDE (__heap_start, .)
+                0x008000d5                PROVIDE (__noinit_end, .)
+                0x008000d5                _end = .
+                0x008000d5                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)

@@ -1,4 +1,5 @@
-    #include <stdio.h>
+//Import bibliotek
+#include <stdio.h>
 #include <stdlib.h>
 #include <avr/io.h>
 #include <util/delay.h>
@@ -8,13 +9,15 @@
 #include "uart.h"
 #include "rfid_em4095.h"
 
+//Zmienne do obs³ugi przycisku w enkoderze
 #define KEY (1<<PC0)
-
 uint16_t key_lock;
+
+//Wartoœæ enkodera
 unsigned int encoder = 0;
 
 
-//INT0 interrupt
+//Przerwanie sprzêtowe INT0
 ISR( INT0_vect ) {
     if ( !bit_is_clear( PIND, PD3 ) ) {
         encoder ++;
@@ -23,7 +26,7 @@ ISR( INT0_vect ) {
     }
 }
 
-//INT1 interrupt
+//Przerwanie sprzêtowe INT0
 ISR( INT1_vect ) {
     if ( !bit_is_clear( PIND, PD2 ) ) {
         encoder ++;
@@ -33,22 +36,26 @@ ISR( INT1_vect ) {
 }
 
 int main( void ) {
-
+    //Numer zabezpieczenia
     int securityNumber = 0;
 
+    //Wybrane liczby za pomoc¹ enkodera
     int encoderResult[3];
     int encoderCount = 0;
 
+    //Bufor do wypisania tablicy encoderResult
     char bufor [4];
     char buforEnc0 [4];
     char buforEnc1 [4];
     char buforEnc2 [4];
 
+    //Zmienne do obs³ugi klawiatury
     int keypressed=0;
     int keyboardCount=0;
     char keyboardResult[4];
     uint8_t keyboardListener = 1;
 
+    //Konfiguracja portów enkodera
     PORTC |= KEY;
 
     DDRD &= ~( 1 << PD2 );
@@ -58,8 +65,10 @@ int main( void ) {
     GICR |= ( 1 << INT0 ) | ( 1 << INT1 );
     MCUCR |= ( 1 << ISC01 ) | ( 1 << ISC11 ) | ( 1 << ISC10 );
 
+    //W³¹czenie przerwañ
     sei();
 
+    //Inicjalizacja LCD
     LCD_Initalize();
     LCD_Home();
     LCD_Clear();
@@ -69,13 +78,15 @@ int main( void ) {
 
     while ( 1 ) {
 
+          //Pierwsze zabezpieczenie
           if(securityNumber == 0){
 
+          //Je¿eli przycisk enkodera naciœniêty
           if( !key_lock && !(PINC & KEY ) ) {
            key_lock = 65000;
 
+           //Pobieram wartoœæ i umieszczam w tablicy wybranych liczb
            encoderResult[encoderCount] = encoder;
-
            if(encoderCount == 0){
                itoa(encoderResult[encoderCount],buforEnc0,10);
                LCD_GoTo( 0, 1 );
@@ -90,17 +101,19 @@ int main( void ) {
                LCD_WriteText( buforEnc2 );
            }
 
+           //Je¿eli wybrano wszystkie liczby to sprawdzam czy s¹ poprawne
            if(encoderCount < 2){
                encoderCount = encoderCount + 1;
            }else{
                if(encoderResult[0] == 20 && encoderResult[1] == 40 && encoderResult[2] == 60){
+                    //Je¿eli ok to wypisuje info i przechodze dalej
                     LCD_GoTo(10,1);
                     LCD_WriteText("OPEN");
                     _delay_ms( 1000 );
 
                     securityNumber++;
                     LCD_Clear();
-
+                    //Je¿eli NOK to nale¿y wprowadziæ od nowa
                }else{
                     LCD_GoTo(10,1);
                     LCD_WriteText("WRONG");
@@ -112,6 +125,7 @@ int main( void ) {
 
           } else if( key_lock && (PINC & KEY ) ) key_lock++;
 
+        //Ograniczenie enkodera do liczb 1 - 99
         if(encoder > 99){
              encoder = 99;
         }
@@ -120,7 +134,7 @@ int main( void ) {
             encoder = 1;
         }
 
-
+        //Wypisanie wybranych liczb na LCD
         LCD_GoTo( 0, 0 );
         itoa(encoder,bufor,10);
         if(encoder < 10){
@@ -135,11 +149,13 @@ int main( void ) {
         LCD_GoTo( 2, 0 );
         LCD_WriteText("               ");
 
+        //Drugie zabezpieczenie
         }else if (securityNumber == 1){
 
              LCD_GoTo(0,0);
              LCD_WriteText("Keyboard");
 
+             //Konfiguracja portu klawiatury
              DDRB=0xF0;
              _delay_ms(1);
              PORTB=0x0F;
@@ -156,6 +172,7 @@ int main( void ) {
              LCD_WriteText("              ");
 
              keyboardListener = 1;
+             //W pêtli odczytuje wybrane przyciski z klawiatury
              while(keyboardListener == 1){
 
                  if (PINB!=0b11110000){
@@ -258,6 +275,7 @@ int main( void ) {
                         keyboardCount++;
                      }
 
+                     //Je¿eli zosta³y wybrane wszystkie cyfry, to sprawdzam czy s¹ poprawne
                      if(keyboardCount >= 4){
                         if(keyboardResult[0] == '1' && keyboardResult[1] == '9' && keyboardResult[2] == '9' && keyboardResult[3] == '5'){
                             LCD_GoTo(10,1);
@@ -294,8 +312,10 @@ int main( void ) {
              LCD_GoTo(0,0);
              LCD_WriteText("Pass RFID card");
 
-             RFID_init();//inicjalizacja EM4095 i procesora do dekodowania kart
+             //Inicjalizacja EM4095 i procesora do dekodowania kart
+             RFID_init();
 
+             //Sprawdzam w pêtli czy zosta³a przy³o¿ona odpowiednia karta
              while(1){
                  if(RFID_id[0]==0002 && RFID_id[1]==3346 && RFID_id[2]==5003 && RFID_id[3]==5408){
                      LCD_GoTo(10,1);
