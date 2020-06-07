@@ -9,15 +9,15 @@
 #include "uart.h"
 #include "rfid_em4095.h"
 
-//Zmienne do obs³ugi przycisku w enkoderze
+//Zmienne do obslugi przycisku w enkoderze
 #define KEY (1<<PC0)
 uint16_t key_lock;
 
-//Wartoœæ enkodera
+//Wartosc enkodera
 unsigned int encoder = 0;
 
 
-//Przerwanie sprzêtowe INT0
+//Przerwanie sprzetowe INT0
 ISR( INT0_vect ) {
     if ( !bit_is_clear( PIND, PD3 ) ) {
         encoder ++;
@@ -26,7 +26,7 @@ ISR( INT0_vect ) {
     }
 }
 
-//Przerwanie sprzêtowe INT0
+//Przerwanie sprzetowe INT0
 ISR( INT1_vect ) {
     if ( !bit_is_clear( PIND, PD2 ) ) {
         encoder ++;
@@ -39,7 +39,7 @@ int main( void ) {
     //Numer zabezpieczenia
     int securityNumber = 0;
 
-    //Wybrane liczby za pomoc¹ enkodera
+    //Wybrane liczby za pomoca enkodera
     int encoderResult[3];
     int encoderCount = 0;
 
@@ -49,13 +49,13 @@ int main( void ) {
     char buforEnc1 [4];
     char buforEnc2 [4];
 
-    //Zmienne do obs³ugi klawiatury
+    //Zmienne do obslugi klawiatury
     int keypressed=0;
     int keyboardCount=0;
     char keyboardResult[4];
     uint8_t keyboardListener = 1;
 
-    //Konfiguracja portów enkodera
+    //Konfiguracja portow enkodera
     PORTC |= KEY;
 
     DDRD &= ~( 1 << PD2 );
@@ -65,7 +65,7 @@ int main( void ) {
     GICR |= ( 1 << INT0 ) | ( 1 << INT1 );
     MCUCR |= ( 1 << ISC01 ) | ( 1 << ISC11 ) | ( 1 << ISC10 );
 
-    //W³¹czenie przerwañ
+    //Wlaczenie przerwan
     sei();
 
     //Inicjalizacja LCD
@@ -81,11 +81,11 @@ int main( void ) {
           //Pierwsze zabezpieczenie
           if(securityNumber == 0){
 
-          //Je¿eli przycisk enkodera naciœniêty
+          //Jezeli przycisk enkodera nacisniety
           if( !key_lock && !(PINC & KEY ) ) {
            key_lock = 65000;
 
-           //Pobieram wartoœæ i umieszczam w tablicy wybranych liczb
+           //Pobieram wartosc i umieszczam w tablicy wybranych liczb
            encoderResult[encoderCount] = encoder;
            if(encoderCount == 0){
                itoa(encoderResult[encoderCount],buforEnc0,10);
@@ -101,19 +101,19 @@ int main( void ) {
                LCD_WriteText( buforEnc2 );
            }
 
-           //Je¿eli wybrano wszystkie liczby to sprawdzam czy s¹ poprawne
+           //Jezeli wybrano wszystkie liczby to sprawdzam czy sa poprawne
            if(encoderCount < 2){
                encoderCount = encoderCount + 1;
            }else{
                if(encoderResult[0] == 20 && encoderResult[1] == 40 && encoderResult[2] == 60){
-                    //Je¿eli ok to wypisuje info i przechodze dalej
+                    //Jezeli ok to wypisuje info i przechodze dalej
                     LCD_GoTo(10,1);
                     LCD_WriteText("OPEN");
                     _delay_ms( 1000 );
 
                     securityNumber++;
                     LCD_Clear();
-                    //Je¿eli NOK to nale¿y wprowadziæ od nowa
+                    //Jezeli NOK to nalezy wprowadzic od nowa
                }else{
                     LCD_GoTo(10,1);
                     LCD_WriteText("WRONG");
@@ -172,7 +172,7 @@ int main( void ) {
              LCD_WriteText("              ");
 
              keyboardListener = 1;
-             //W pêtli odczytuje wybrane przyciski z klawiatury
+             //W petli odczytuje wybrane przyciski z klawiatury
              while(keyboardListener == 1){
 
                  if (PINB!=0b11110000){
@@ -275,7 +275,7 @@ int main( void ) {
                         keyboardCount++;
                      }
 
-                     //Je¿eli zosta³y wybrane wszystkie cyfry, to sprawdzam czy s¹ poprawne
+                     //Jezeli zostaly wybrane wszystkie cyfry, to sprawdzam czy sa poprawne
                      if(keyboardCount >= 4){
                         if(keyboardResult[0] == '1' && keyboardResult[1] == '9' && keyboardResult[2] == '9' && keyboardResult[3] == '5'){
                             LCD_GoTo(10,1);
@@ -315,7 +315,7 @@ int main( void ) {
              //Inicjalizacja EM4095 i procesora do dekodowania kart
              RFID_init();
 
-             //Sprawdzam w pêtli czy zosta³a przy³o¿ona odpowiednia karta
+             //Sprawdzam w petli czy zostala przylozona odpowiednia karta
              while(1){
                  if(RFID_id[0]==0002 && RFID_id[1]==3346 && RFID_id[2]==5003 && RFID_id[3]==5408){
                      LCD_GoTo(10,1);
