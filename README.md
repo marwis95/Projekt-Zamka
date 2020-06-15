@@ -7,3 +7,5 @@
 - **uart.c** - biblioteka do odczytu strumienia danych z czytnika kart rfid (RS232)
 - **uart.h** - plik nagłówkowy dla bibliteki RS232 	
 - **main.c** - główny program
+
+**Kod jest szczegółowo skomentowany w main.c**
